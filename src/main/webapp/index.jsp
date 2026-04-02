@@ -152,9 +152,4 @@
         <a href="#" class="btn-secondary">En savoir plus</a>
     </div>
 
-<div class="stats">
-    <div class="stat"><h2>3</h2><p>Machines virtuelles</p></div>
-    <div class="stat"><h2>5</h2><p>Services deployes</p></div>
-    <div class="stat"><h2>24/7</h2><p>Supervision active</p></div>
-</div>
-    
+
