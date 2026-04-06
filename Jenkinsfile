@@ -29,14 +29,13 @@ pipeline {
             }
         }
 
-        // ⏳ À activer quand SonarQube sera configuré
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('SonarQubeServer') {
-        //             sh 'mvn sonar:sonar'
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
