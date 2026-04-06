@@ -1,65 +1,82 @@
 pipeline {
     agent any
-
     environment {
-        APP_NAME    = "mariem-app"
-        PROJECT_DIR = "/home/machine1/mariem-app"
-        WEBAPPS     = "/opt/tomcat/apache-tomcat-8.5.59/webapps"
-        TOMCAT_BIN  = "/opt/tomcat/apache-tomcat-8.5.59/bin"
+        DOCKER_IMAGE         = "mariemtroudi/tomcat"
+        DOCKER_TAG           = "latest"
+        REGISTRY_CREDENTIALS = "dockerhub_credentials"
     }
-
+    tools {
+        maven 'Maven'
+        jdk 'java'
+    }
     stages {
 
-        stage('Git Pull') {
+        stage('Checkout Code') {
             steps {
-                echo '== Recuperation du code source =='
-                dir("${PROJECT_DIR}") {
-                    sh 'git pull origin master || git pull origin main'
+                git branch: 'main', url: 'https://github.com/mariem-crypto/mariem-app.git'
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        // ⏳ À activer quand SonarQube sera configuré
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('SonarQubeServer') {
+        //             sh 'mvn sonar:sonar'
+        //         }
+        //     }
+        // }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub_credentials',
+                    usernameVariable: 'USERNAME',
+                    passwordVariable: 'PASSWORD'
+                )]) {
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
                 }
             }
         }
 
-        stage('Build WAR') {
+        stage('Push Docker Image') {
             steps {
-                echo '== Build Maven =='
-                dir("${PROJECT_DIR}") {
-                    sh 'mvn clean package -DskipTests'
-                    sh 'ls -lh target/mariem-app.war'
-                }
+                sh 'docker push $DOCKER_IMAGE:$DOCKER_TAG'
             }
         }
 
-        stage('Deploy vers Tomcat') {
-            steps {
-                echo '== Deploiement sur Tomcat =='
-                sh '''
-                    rm -rf  ${WEBAPPS}/mariem-app
-                    rm -f   ${WEBAPPS}/mariem-app.war
-                    cp ${PROJECT_DIR}/target/mariem-app.war ${WEBAPPS}/mariem-app.war
-                    echo "WAR copie avec succes dans webapps"
-                '''
-            }
-        }
+        // ⏳ À activer quand Kubernetes sera configuré (Sprint 2)
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         sh 'kubectl apply -f kubernetes/deployment.yaml'
+        //         sh 'kubectl apply -f kubernetes/service.yaml'
+        //     }
+        // }
 
-        stage('Verification') {
-            steps {
-                echo '== Test disponibilite =='
-                sh '''
-                    sleep 12
-                    curl -s -o /dev/null -w "%{http_code}" http://localhost:8070/mariem-app/ | grep -q "200" \
-                        && echo "mariem-app est UP (HTTP 200)" \
-                        || echo "Verifier les logs Tomcat"
-                '''
-            }
-        }
     }
-
     post {
         success {
-            echo '✅ Pipeline reussi — mariem-app deployee sur Tomcat port 8070'
+            echo 'Pipeline exécuté avec succès'
         }
         failure {
-            echo '❌ Echec du pipeline — consulter les logs Jenkins'
+            echo 'Pipeline échoué'
         }
     }
 }
