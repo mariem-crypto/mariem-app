@@ -61,13 +61,14 @@ pipeline {
             }
         }
 
-        // ⏳ À activer quand Kubernetes sera configuré (Sprint 2)
-        // stage('Deploy to Kubernetes') {
-        //     steps {
-        //         sh 'kubectl apply -f kubernetes/deployment.yaml'
-        //         sh 'kubectl apply -f kubernetes/service.yaml'
-        //     }
-        // }
+        stage('Deploy to Kubernetes') {
+            steps {
+		sh '''
+                ssh -o StrictHostKeyChecking=no machine2@192.168.100.11 
+                sh 'kubectl apply -f ~/deployment.yaml'
+                sh 'kubectl apply -f ~/service.yaml'
+            }
+        }
 
     }
     post {

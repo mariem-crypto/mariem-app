@@ -136,7 +136,7 @@
 <nav>
     <div class="logo">ELITE<span>TELECOM</span></div>
     <ul>
-        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Acceuil</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">A propos</a></li>
         <li><a href="#">Contact</a></li>
@@ -151,71 +151,5 @@
         <a href="#" class="btn-primary">Nos Services</a>
         <a href="#" class="btn-secondary">En savoir plus</a>
     </div>
-</div>
 
-<div class="stats">
-    <div class="stat"><h2>99.9%</h2><p>Disponibilite reseau</p></div>
-    <div class="stat"><h2>3</h2><p>Machines virtuelles</p></div>
-    <div class="stat"><h2>5</h2><p>Services deployes</p></div>
-    <div class="stat"><h2>24/7</h2><p>Supervision active</p></div>
-</div>
 
-<div class="services">
-    <h2>Nos Services</h2>
-    <p>Une infrastructure complete et moderne pour vos besoins telecom</p>
-    <div class="services-grid">
-        <div class="service-card">
-            <div class="icon">🌐</div>
-            <h3>DNS Bind9</h3>
-            <p>Resolution de noms de domaine avec zone locale elite.dev.tn et recursion externe configuree.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">📡</div>
-            <h3>DHCP</h3>
-            <p>Distribution automatique d'adresses IP aux clients avec plage 172.19.0.100 - 172.19.0.200.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">🌍</div>
-            <h3>Serveur Web</h3>
-            <p>Hebergement web avec Nginx comme reverse proxy et applications Java sur Tomcat.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">📞</div>
-            <h3>VoIP Asterisk</h3>
-            <p>Telephonie sur IP avec le protocole SIP pour communications internes et externes.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">☸️</div>
-            <h3>Kubernetes K3s</h3>
-            <p>Orchestration de containers avec cluster 1 master et 2 workers pour haute disponibilite.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">📊</div>
-            <h3>Supervision</h3>
-            <p>Monitoring en temps reel avec Prometheus et dashboards Grafana par service.</p>
-        </div>
-    </div>
-</div>
-
-<div class="about">
-    <div class="about-text">
-        <h2>Projet <span>PFE</span> Telecommunications</h2>
-        <p>Ce projet presente une infrastructure telecom complete et moderne, deployee avec les technologies DevOps les plus recentes incluant Docker, Kubernetes, Jenkins CI/CD et la supervision avec Prometheus et Grafana.</p>
-        <a href="#" class="btn-primary">Decouvrir le projet</a>
-    </div>
-    <div class="about-stats">
-        <div class="about-stat"><h3>5</h3><p>Sprints realises</p></div>
-        <div class="about-stat"><h3>K3s</h3><p>Cluster Kubernetes</p></div>
-        <div class="about-stat"><h3>CI/CD</h3><p>Pipeline Jenkins</p></div>
-        <div class="about-stat"><h3>HA</h3><p>Haute disponibilite</p></div>
-    </div>
-</div>
-
-<footer>
-    <div class="logo">ELITE<span>TELECOM</span></div>
-    <p>Developpe par <span class="highlight">Mariem</span> — Projet PFE Telecommunications RSI3</p>
-</footer>
-
-</body>
-</html>
-EOF 
