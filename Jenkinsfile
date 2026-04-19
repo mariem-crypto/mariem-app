@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE         = "mariemtroudi/tomcat"
-        DOCKER_TAG           = "latest"
+        DOCKER_TAG           = "${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = "dockerhub_credentials"
     }
     tools {
