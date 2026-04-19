@@ -63,14 +63,18 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-		sh '''
-                ssh -o StrictHostKeyChecking=no machine2@192.168.100.11 
-                sh 'kubectl apply -f ~/deployment.yaml'
-                sh 'kubectl apply -f ~/service.yaml'
+		sshagent(['ssh-k8s']) {
+		    sh '''
+                    ssh  machine2@192.168.100.11" 
+                    kubectl apply -f ~/deployment.yaml
+                    kubectl apply -f ~/service.yaml
+                    kubectl get pods
+                    "
+                    '''
+               }
             }
         }
 
-    }
     post {
         success {
             echo 'Pipeline exécuté avec succès'
