@@ -136,7 +136,7 @@
 <nav>
     <div class="logo">ELITE<span>TELECOM</span></div>
     <ul>
-        <li><a href="#">SonarQube</a></li>
+        <li><a href="#">Acceuil</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">A propos</a></li>
         <li><a href="#">Contact</a></li>
